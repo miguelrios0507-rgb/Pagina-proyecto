@@ -87,16 +87,16 @@
     		<div class="row justify-content-center">
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
-    					<li><a href="#" class="active">Todos</a></li>
-    					<li><a href="#">Quesos</a></li>
-    					<li><a href="#">Lácteos</a></li>
-    					<li><a href="#">Embutidos</a></li>
-    					<li><a href="#">Abarrotes</a></li>
+    					<li><a href="#" class="active" data-cat="todos">Todos</a></li>
+    					<li><a href="#" data-cat="quesos">Quesos</a></li>
+    					<li><a href="#" data-cat="lacteos">Lácteos</a></li>
+    					<li><a href="#" data-cat="embutidos">Embutidos</a></li>
+    					<li><a href="#" data-cat="abarrotes">Abarrotes</a></li>
     				</ul>
     			</div>
     		</div>
     		<div class="row">
-    			<div class="col-md-6 col-lg-3 ftco-animate">
+    			<div class="col-md-6 col-lg-3 ftco-animate" data-cat="quesos">
     <div class="product">
         <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/queso-oaxaca.jpg" alt="Queso Oaxaca">
             <span class="status">11%</span>
@@ -113,7 +113,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-6 col-lg-3 ftco-animate">
+<div class="col-md-6 col-lg-3 ftco-animate" data-cat="quesos">
     <div class="product">
         <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/queso-panela.jpg" alt="Queso Panela">
             
@@ -130,7 +130,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-6 col-lg-3 ftco-animate">
+<div class="col-md-6 col-lg-3 ftco-animate" data-cat="lacteos">
     <div class="product">
         <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/cremita.jpg" alt="Cremita de Rancho">
             
@@ -147,7 +147,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-6 col-lg-3 ftco-animate">
+<div class="col-md-6 col-lg-3 ftco-animate" data-cat="lacteos">
     <div class="product">
         <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/yogurt.jpg" alt="Yogurt Artesanal">
             
@@ -164,7 +164,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-6 col-lg-3 ftco-animate">
+<div class="col-md-6 col-lg-3 ftco-animate" data-cat="embutidos">
     <div class="product">
         <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/jamon.jpg" alt="Jamón de Pierna">
             
@@ -181,7 +181,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-6 col-lg-3 ftco-animate">
+<div class="col-md-6 col-lg-3 ftco-animate" data-cat="embutidos">
     <div class="product">
         <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/salchichas.jpg" alt="Salchichas Viena">
             
@@ -198,7 +198,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-6 col-lg-3 ftco-animate">
+<div class="col-md-6 col-lg-3 ftco-animate" data-cat="embutidos">
     <div class="product">
         <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/chorizo.jpg" alt="Chorizo Ranchero">
             
@@ -215,7 +215,7 @@
         </div>
     </div>
 </div>
-<div class="col-md-6 col-lg-3 ftco-animate">
+<div class="col-md-6 col-lg-3 ftco-animate" data-cat="abarrotes">
     <div class="product">
         <a href="product-single.html" class="img-prod"><img class="img-fluid" src="images/huevo.jpg" alt="Huevo Fresco">
             
@@ -233,21 +233,6 @@
     </div>
 </div>
 </div>
-    		<div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
     	</div>
     </section>
 
@@ -362,5 +347,21 @@
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
     
+      <script>
+    // Filtro de productos: cada producto lleva data-cat="quesos|lacteos|embutidos|abarrotes"
+    $(function () {
+      $('.product-category a').on('click', function (e) {
+        e.preventDefault();
+        var cat = $(this).data('cat');
+        $('.product-category a').removeClass('active');
+        $(this).addClass('active');
+        $('div[data-cat]').each(function () {
+          var mostrar = (cat === 'todos' || $(this).data('cat') === cat);
+          $(this).toggle(mostrar);
+          if (mostrar) { $(this).css({ opacity: 1, visibility: 'visible' }); }
+        });
+      });
+    });
+  </script>
   </body>
 </html>
